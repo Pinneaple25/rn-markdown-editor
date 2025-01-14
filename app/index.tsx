@@ -1,52 +1,59 @@
-import { Pressable, StyleSheet, View, TextInput } from "react-native";
+import { useEffect, useState } from "react";
+import { Pressable, View, TextInput, Alert } from "react-native";
 import Ionicons from '@expo/vector-icons/Ionicons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { globalStyles } from '@/styles/global-styles';
 
 export const MarkdownApp = () => {
+
+  const [txt, setTxt] = useState("");
+
+  useEffect(() => {
+    loadText();
+  }, []);
+  
+  const saveText = async () => {
+    try {
+      await AsyncStorage.setItem('my-key', txt);
+      Alert.alert("", "Changes saved.");
+    } catch (e) {
+      Alert.alert("Error on save!", `${e}`);
+    }
+  };
+
+  const loadText = async () => {
+    try {
+      const value = await AsyncStorage.getItem('my-key');
+      if (value !== null) {
+        setTxt(value);
+      }
+    } catch (e) {
+      Alert.alert("Error on load!", `${e}`);
+    }
+  };
+
   return (
     <View
-      style={styles.container}
+      style={ globalStyles.container }
     >
       <TextInput
-        style={styles.textInput}
+        value={ txt }
+        style={ globalStyles.textInput }
         multiline
+        onChangeText={ setTxt }
       />
 
-      <View style={ styles.buttonsContainer }>
-        <Pressable style={ styles.button } onPress={() => console.log('Save data')}>
+      <View style={ globalStyles.buttonsContainer }>
+        <Pressable style={ globalStyles.button } onPress={ saveText }>
           <Ionicons name="save" size={32} color="green" />
         </Pressable>
 
-        <Pressable style={ styles.button } onPress={() => console.log('Send information')}>
+        <Pressable style={ globalStyles.button } onPress={() => console.log('Send information')}>
           <Ionicons name="send" size={32} color="blue" />
         </Pressable>
       </View>
       </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-  },
-  textInput: {
-    flex: 1,
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
-    padding: 10,
-    textAlignVertical: 'top'
-  },
-  buttonsContainer: {
-    flexDirection: 'row',
-    gap: 15,
-    alignSelf: 'center'
-  },
-  button: {
-    height: 32,
-    width: 32,
-  }
-});
-
 
 export default MarkdownApp;
