@@ -11,7 +11,7 @@ const RootLayout = () => {
   if (!loaded) return null;
 
   return (
-    <View style={{ flex: 1, marginBottom: 20 }}>
+    <View style={{ flex: 1 }}>
       <Slot/>
     </View>
   )

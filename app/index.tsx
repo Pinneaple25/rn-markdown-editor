@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { Pressable, View, TextInput, Alert } from "react-native";
-
-import Ionicons from '@expo/vector-icons/Ionicons';
+import { View, TextInput, Alert, Keyboard } from "react-native";
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import FooterToolBar from "@/components/FooterToolBar";
+import HeaderToolBar from "@/components/HeaderToolBar";
 import ModalPromp from "@/components/ModalPromp";
 import { useRequest } from "@/hooks/useRequest";
 import { globalStyles } from '@/styles/global-styles';
@@ -44,6 +44,9 @@ export const MarkdownApp = () => {
   }
 
   const sendRequest = async () => {
+    if (!url)
+      return setIsVisible(true);
+
     const isRequestSucceded = await postRequest(txt);
 
     if (!isRequestSucceded) 
@@ -59,6 +62,13 @@ export const MarkdownApp = () => {
     <View
       style={ globalStyles.container }
     >
+      <HeaderToolBar items={[
+        { name: 'save-outline', onPress: saveText },
+        { name: 'paper-plane-outline', onPress: sendRequest },
+        { name: 'link-outline', onPress: () => setIsVisible(true) },
+        { name: 'checkmark-outline', onPress: () => Keyboard.dismiss() },
+      ]}/>
+
       <TextInput
         value={ txt }
         style={ globalStyles.textInput }
@@ -66,28 +76,21 @@ export const MarkdownApp = () => {
         onChangeText={ setTxt }
       />
 
-      <View style={ globalStyles.buttonsContainer }>
-        <Pressable style={ globalStyles.button } onPress={ saveText }>
-          <Ionicons name="save" size={32} color="green" />
-        </Pressable>
+      <FooterToolBar items={[
+        { name: 'type', onPress: () => console.log() },
+        { name: 'bold', onPress: () => console.log() },
+        { name: 'italic', onPress: () => console.log() },
+        { name: 'list', onPress: () => console.log() },
+      ]}/>
 
-        <Pressable style={ globalStyles.button } onPress={ async() => await sendRequest() }>
-          <Ionicons name="send" size={32} color="blue" />
-        </Pressable>
-
-        <Pressable style={ globalStyles.button } onPress={ () => setIsVisible(true) }>
-          <Ionicons name="settings" size={32} color="gray" />
-        </Pressable>
-
-        <ModalPromp
-          isVisible={ isVisible }
-          onClose={ async () => await onClosePromp() }
-          inputValue={ url }
-          title="Write the URL"
-          onChangeText={ setUrl }
-        />
-      </View>
-      </View>
+      <ModalPromp
+        isVisible={ isVisible }
+        onClose={ async () => await onClosePromp() }
+        inputValue={ url }
+        title="Write the URL"
+        onChangeText={ setUrl }
+      />
+    </View>
   );
 }
 
