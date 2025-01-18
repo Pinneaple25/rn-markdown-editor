@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Markdown-Viewer",
-    "slug": "Markdown-Viewer",
+    "slug": "Markdown Viewer",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -15,7 +15,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.pineapple25.MarkdownViewer"
     },
     "web": {
       "bundler": "metro",
@@ -36,6 +37,14 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "f5ec0cb0-bd35-4182-9859-e4e831b6fe07"
+      }
     }
   }
 }
