@@ -1,5 +1,7 @@
-import { Pressable, StyleProp, View, ViewStyle } from 'react-native';
+import { useEffect } from 'react';
+import { Animated, Keyboard, Pressable, StyleProp, ViewStyle } from 'react-native';
 import Feather from '@expo/vector-icons/Feather';
+import useAnimation from '@/hooks/useAnimation';
 import { globalStyles } from '@/styles/global-styles';
 
 interface Props {
@@ -14,16 +16,21 @@ interface Item {
 }
 
 export const FooterToolBar = ({ items }: Props) => {
-  return (
-    <View style={ globalStyles.toolsContainer }>
+  const { animatedValue, animateTo, animateBack } = useAnimation({ initialValue: 60, toValue: 0 });
 
+  useEffect(() => {
+    Keyboard.addListener('keyboardDidShow', animateTo);
+    Keyboard.addListener('keyboardDidHide', animateBack);
+  }, []);
+
+  return (
+    <Animated.View style={ [globalStyles.toolsContainer, { transform: [{ translateY: animatedValue }] }] }>
       { items.map((item, i) => 
         <Pressable key={ i } onPress={ item.onPress }>
           <Feather name={ item.name } size={ 36 } color="black" />
         </Pressable>
       )}
-    
-    </View>
+    </Animated.View>
   )
 }
 

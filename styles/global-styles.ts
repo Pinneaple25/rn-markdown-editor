@@ -7,10 +7,8 @@ export const globalStyles = StyleSheet.create({
   },
   textInput: {
     flex: 1,
-    height: 40,
     margin: 12,
-    padding: 10,
-    textAlignVertical: 'top'
+    textAlignVertical: 'top',
   },
   toolsContainer: {
     alignItems: 'center',
