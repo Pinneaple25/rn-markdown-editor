@@ -17,8 +17,8 @@ export const FooterToolBar = ({ items }: Props) => {
   return (
     <View style={ globalStyles.toolsContainer }>
 
-      { items.map(item => 
-        <Pressable onPress={ item.onPress }>
+      { items.map((item, i) => 
+        <Pressable key={ i } onPress={ item.onPress }>
           <Feather name={ item.name } size={ 36 } color="black" />
         </Pressable>
       )}
