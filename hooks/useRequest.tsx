@@ -16,7 +16,7 @@ export const useRequest = () => {
   }
 
   const saveUrl = async () => {
-      await AsyncStorage.setItem('url', url);
+    await AsyncStorage.setItem('url', url);
   }
 
   const postRequest = async (content: string): Promise<boolean> => {
@@ -40,3 +40,5 @@ export const useRequest = () => {
     postRequest,
   }
 }
+
+export default useRequest;

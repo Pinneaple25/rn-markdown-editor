@@ -2,42 +2,21 @@ import { useEffect, useState } from "react";
 import { View, TextInput, Alert, Keyboard } from "react-native";
 import { router } from "expo-router";
 
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
 import FooterToolBar from "@/components/FooterToolBar";
 import HeaderToolBar from "@/components/HeaderToolBar";
 import ModalPromp from "@/components/ModalPromp";
-import { useRequest } from "@/hooks/useRequest";
+import useRequest from "@/hooks/useRequest";
+import useTextHandler from "@/hooks/useTextHandler";
 import { globalStyles } from '@/styles/global-styles';
 
 export const MarkdownApp = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const [txt, setTxt] = useState("");
   const { url, setUrl, postRequest, saveUrl } = useRequest();
+  const { txt, setTxt, saveText, loadText, deleteText } = useTextHandler();
 
   useEffect(() => {
     loadText();
   }, []);
-  
-  const saveText = async () => {
-    try {
-      await AsyncStorage.setItem('text', txt);
-      Alert.alert("Text saved!", "The text was successfully saved.");
-    } catch (e) {
-      Alert.alert("Oops!", "Something went wrong while saving the text.");
-    }
-  };
-
-  const loadText = async () => {
-    const value = await AsyncStorage.getItem('text');
-    if (value !== null) 
-      setTxt(value);
-  };
-
-  const deleteText = async () => {
-    await AsyncStorage.removeItem('text');
-    setTxt("");
-  }
 
   const onClosePromp = async () => {
     setIsVisible(false);
