@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { View, TextInput, Alert, Keyboard } from "react-native";
+import { router } from "expo-router";
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -66,7 +67,8 @@ export const MarkdownApp = () => {
         { name: 'save-outline', onPress: saveText },
         { name: 'paper-plane-outline', onPress: sendRequest },
         { name: 'link-outline', onPress: () => setIsVisible(true) },
-        { name: 'checkmark-outline', onPress: () => Keyboard.dismiss() },
+        { name: 'logo-markdown', onPress: () => router.push({ pathname: '/viewer', params: { txt } }) },
+        { name: 'checkmark-outline', onPress: Keyboard.dismiss },
       ]}/>
 
       <TextInput
