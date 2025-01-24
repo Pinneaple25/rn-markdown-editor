@@ -1,6 +1,5 @@
 import React from 'react'
-import { View } from 'react-native'
-import { Slot } from 'expo-router';
+import { Stack } from 'expo-router';
 import { useFonts } from 'expo-font';
 
 const RootLayout = () => {
@@ -11,9 +10,10 @@ const RootLayout = () => {
   if (!loaded) return null;
 
   return (
-    <View style={{ flex: 1 }}>
-      <Slot/>
-    </View>
+    <Stack screenOptions={{ headerShown: false }}>
+      <Stack.Screen name='index'/>
+      <Stack.Screen name='viewer'/>
+    </Stack>
   )
 }
 
