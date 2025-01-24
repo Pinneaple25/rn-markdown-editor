@@ -12,7 +12,17 @@ import { globalStyles } from '@/styles/global-styles';
 export const MarkdownApp = () => {
   const [isVisible, setIsVisible] = useState(false);
   const { url, setUrl, postRequest, saveUrl } = useRequest();
-  const { txt, setTxt, saveText, loadText, deleteText } = useTextHandler();
+  const { 
+    txt,
+    setTxt,
+    selector,
+    setSelector,
+    saveText,
+    loadText,
+    deleteText,
+    makeBold,
+    makeItalics,
+  } = useTextHandler();
 
   useEffect(() => {
     loadText();
@@ -39,9 +49,7 @@ export const MarkdownApp = () => {
   }
 
   return (
-    <View
-      style={ globalStyles.container }
-    >
+    <View style={ globalStyles.container }>
       <HeaderToolBar items={[
         { name: 'save-outline', onPress: saveText },
         { name: 'paper-plane-outline', onPress: sendRequest },
@@ -52,15 +60,17 @@ export const MarkdownApp = () => {
 
       <TextInput
         value={ txt }
+        selection={ selector }
         style={ globalStyles.textInput }
         multiline
         onChangeText={ setTxt }
+        onSelectionChange={ (event) => setSelector(event.nativeEvent.selection) }
       />
 
       <FooterToolBar items={[
         { name: 'type', onPress: () => console.log() },
-        { name: 'bold', onPress: () => console.log() },
-        { name: 'italic', onPress: () => console.log() },
+        { name: 'bold', onPress: makeBold },
+        { name: 'italic', onPress: makeItalics },
         { name: 'list', onPress: () => console.log() },
       ]}/>
 

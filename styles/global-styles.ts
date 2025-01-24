@@ -7,6 +7,7 @@ export const globalStyles = StyleSheet.create({
   },
   textInput: {
     flex: 1,
+    fontSize: 20,
     margin: 12,
     textAlignVertical: 'top',
   },
