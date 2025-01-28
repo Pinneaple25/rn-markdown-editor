@@ -20,7 +20,8 @@ export const MarkdownApp = () => {
     saveText,
     loadText,
     deleteText,
-    underline
+    underline,
+    indexLine,
   } = useTextHandler();
 
   useEffect(() => {
@@ -67,10 +68,10 @@ export const MarkdownApp = () => {
       />
 
       <FooterToolBar items={[
-        { name: 'type', onPress: () => console.log() },
+        { name: 'type', onPress: () => indexLine('#', 6) },
         { name: 'bold', onPress: () => underline('**') },
         { name: 'italic', onPress: () => underline('_') },
-        { name: 'list', onPress: () => console.log() },
+        { name: 'list', onPress: () => indexLine('-') },
       ]}/>
 
       <ModalPromp

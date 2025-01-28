@@ -42,13 +42,34 @@ export const useTextHandler = () => {
     insertInText(s);
   }
 
+  const indexLine = (s: string, max: number = 1) => {
+    const { startLine, endLine } = getSelectedLines();
+
+    const result = txt.split('\n')
+      .map((line, i) => {
+        if (i < startLine || i > endLine) 
+          return line;
+
+        if (line.startsWith(s.repeat(max) + ' '))
+          return line.replace(s.repeat(max) + ' ', '');
+        
+        if (!line.startsWith(s))
+          return s + ' ' + line;
+
+        return s + line;
+      })
+      .join('\n');
+
+    setTxt(result);
+  }
+
   const getSelectedText = (offset = 0) => txt.slice(start - offset, end + offset);
 
   const getSelectedLines = () => {
-    const startLines = txt.slice(0, start).split('\n').length + 1;
-    const endLines = txt.slice(end).split('\n').length + 1;
+    const startLine = txt.slice(0, start).split('\n').length - 1;
+    const endLine = txt.slice(0, end).split('\n').length - 1;
 
-    return { startLines, endLines };
+    return { startLine, endLine };
   }
 
   const insertInText = (s: string) => {
@@ -81,8 +102,6 @@ export const useTextHandler = () => {
   const selectionContains = (s: string) => {
     const selectedText = getSelectedText(s.length);
 
-    console.log(selectedText);
-
     if (selectedText.includes('\n'))
       return false
 
@@ -107,6 +126,7 @@ export const useTextHandler = () => {
     loadText,
     deleteText,
     underline,
+    indexLine,
   }
 }
 
