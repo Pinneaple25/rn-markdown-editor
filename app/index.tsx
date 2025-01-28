@@ -20,8 +20,7 @@ export const MarkdownApp = () => {
     saveText,
     loadText,
     deleteText,
-    makeBold,
-    makeItalics,
+    underline
   } = useTextHandler();
 
   useEffect(() => {
@@ -69,8 +68,8 @@ export const MarkdownApp = () => {
 
       <FooterToolBar items={[
         { name: 'type', onPress: () => console.log() },
-        { name: 'bold', onPress: makeBold },
-        { name: 'italic', onPress: makeItalics },
+        { name: 'bold', onPress: () => underline('**') },
+        { name: 'italic', onPress: () => underline('_') },
         { name: 'list', onPress: () => console.log() },
       ]}/>
 

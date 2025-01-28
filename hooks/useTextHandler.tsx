@@ -32,24 +32,14 @@ export const useTextHandler = () => {
     setTxt("");
   }
 
-  const makeBold = () => {
+  const underline = (s: string) => {
     if (isSelectedDiffLines()) 
       return;
 
-    if (selectionContains('**')) 
-      return deleteFromText('**');
+    if (selectionContains(s)) 
+      return deleteFromText(s);
 
-    insertInText('**');
-  }
-
-  const makeItalics = () => {
-    if (isSelectedDiffLines())
-      return;
-
-    if (selectionContains('*'))
-      return deleteFromText('*');
-
-    insertInText('*');
+    insertInText(s);
   }
 
   const getSelectedText = (offset = 0) => txt.slice(start - offset, end + offset);
@@ -116,8 +106,7 @@ export const useTextHandler = () => {
     saveText,
     loadText,
     deleteText,
-    makeBold,
-    makeItalics,
+    underline,
   }
 }
 
