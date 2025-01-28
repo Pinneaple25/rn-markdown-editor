@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Animated, Keyboard, Pressable, StyleProp, ViewStyle } from 'react-native';
-import Feather from '@expo/vector-icons/Feather';
+import FontAwesome from '@expo/vector-icons/FontAwesome';
 import useAnimation from '@/hooks/useAnimation';
 import { globalStyles } from '@/styles/global-styles';
 
@@ -11,7 +11,7 @@ interface Props {
 }
 
 interface Item {
-  name: keyof typeof Feather.glyphMap;
+  name: keyof typeof FontAwesome.glyphMap;
   onPress: () => void;
 }
 
@@ -26,8 +26,8 @@ export const FooterToolBar = ({ items }: Props) => {
   return (
     <Animated.View style={ [globalStyles.toolsContainer, { transform: [{ translateY: animatedValue }] }] }>
       { items.map((item, i) => 
-        <Pressable key={ i } onPress={ item.onPress }>
-          <Feather name={ item.name } size={ 36 } color="black" />
+        <Pressable key={ i } onPress={ item.onPress } style={{ height: 36 }}>
+          <FontAwesome name={ item.name } size={ 32 } color="black" />
         </Pressable>
       )}
     </Animated.View>

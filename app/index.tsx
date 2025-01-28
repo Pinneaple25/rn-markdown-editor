@@ -72,10 +72,12 @@ export const MarkdownApp = () => {
       />
 
       <FooterToolBar items={[
-        { name: 'type', onPress: () => indexLine('#', 6) },
+        { name: 'text-height', onPress: () => indexLine('#', 6) },
         { name: 'bold', onPress: () => underline('**') },
         { name: 'italic', onPress: () => underline('_') },
-        { name: 'list', onPress: () => indexLine('+') },
+        { name: 'list-ul', onPress: () => indexLine('+') },
+        { name: 'list-ol', onPress: () => indexLine('1.') },
+        { name: 'quote-left', onPress: () => indexLine('>') },
       ]}/>
 
       <ModalPromp
