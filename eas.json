@@ -20,7 +20,6 @@
       "autoIncrement": true,
       "distribution": "store",
       "android": {
-        "androidVersionCode": 2,
         "buildType": "app-bundle"
       }
     }
