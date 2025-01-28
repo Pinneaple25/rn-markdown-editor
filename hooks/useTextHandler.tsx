@@ -15,7 +15,6 @@ export const useTextHandler = () => {
   const saveText = async () => {
     try {
       await AsyncStorage.setItem('text', txt);
-      Alert.alert("Text saved!", "The text was successfully saved.");
     } catch (e) {
       Alert.alert("Oops!", "Something went wrong while saving the text.");
     }
@@ -50,8 +49,8 @@ export const useTextHandler = () => {
         if (i < startLine || i > endLine) 
           return line;
 
-        if (line.startsWith(s.repeat(max) + ' '))
-          return line.replace(s.repeat(max) + ' ', '');
+        if (line.startsWith(s.repeat(max)))
+          return line.replace(s.repeat(max), '').trim();
         
         if (!line.startsWith(s))
           return s + ' ' + line;

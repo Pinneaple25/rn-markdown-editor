@@ -28,6 +28,11 @@ export const MarkdownApp = () => {
     loadText();
   }, []);
 
+  const confirmChanges = () => {
+    saveText();
+    Keyboard.dismiss();
+  }
+
   const onClosePromp = async () => {
     setIsVisible(false);
     await saveUrl();
@@ -51,11 +56,10 @@ export const MarkdownApp = () => {
   return (
     <View style={ globalStyles.container }>
       <HeaderToolBar items={[
-        { name: 'save-outline', onPress: saveText },
         { name: 'paper-plane-outline', onPress: sendRequest },
         { name: 'link-outline', onPress: () => setIsVisible(true) },
         { name: 'logo-markdown', onPress: () => router.push({ pathname: '/viewer', params: { txt } }) },
-        { name: 'checkmark-outline', onPress: Keyboard.dismiss },
+        { name: 'checkmark-outline', onPress: confirmChanges },
       ]}/>
 
       <TextInput
@@ -71,7 +75,7 @@ export const MarkdownApp = () => {
         { name: 'type', onPress: () => indexLine('#', 6) },
         { name: 'bold', onPress: () => underline('**') },
         { name: 'italic', onPress: () => underline('_') },
-        { name: 'list', onPress: () => indexLine('-') },
+        { name: 'list', onPress: () => indexLine('+') },
       ]}/>
 
       <ModalPromp
