@@ -1,4 +1,4 @@
-import { Pressable, View } from 'react-native';
+import { Pressable, ScrollView, View } from 'react-native';
 import { router, useLocalSearchParams } from 'expo-router';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import Markdown from 'react-native-markdown-display';
@@ -14,11 +14,11 @@ export const ViewerScreen = () => {
           <Ionicons name='arrow-back-outline' size={36}/>
         </Pressable>
       </View>
-      <View style={{ margin: 10 }}>
+      <ScrollView style={{ padding: 10, marginBottom: 10 }}>
         <Markdown>
           { txt }
         </Markdown>
-      </View>
+      </ScrollView>
     </View>
   );
 }

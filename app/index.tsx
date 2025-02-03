@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { View, TextInput, Alert, Keyboard } from "react-native";
+import { View, TextInput, Alert, Keyboard, ScrollView } from "react-native";
 import { router } from "expo-router";
 
 import FooterToolBar from "@/components/FooterToolBar";
@@ -62,14 +62,16 @@ export const MarkdownApp = () => {
         { name: 'checkmark-outline', onPress: confirmChanges },
       ]}/>
 
-      <TextInput
-        value={ txt }
-        selection={ selector }
-        style={ globalStyles.textInput }
-        multiline
-        onChangeText={ setTxt }
-        onSelectionChange={ (event) => setSelector(event.nativeEvent.selection) }
-      />
+      <ScrollView>
+        <TextInput
+          value={ txt }
+          selection={ selector }
+          style={ globalStyles.textInput }
+          multiline
+          onChangeText={ setTxt }
+          onSelectionChange={ (event) => setSelector(event.nativeEvent.selection) }
+        />
+      </ScrollView>
 
       <FooterToolBar items={[
         { name: 'text-height', onPress: () => indexLine('#', 6) },
