@@ -1,5 +1,5 @@
-import { Ref, useEffect, useRef, useState } from "react";
-import { View, TextInput, Alert, Keyboard, ScrollView, KeyboardAvoidingView } from "react-native";
+import { useEffect, useState } from "react";
+import { View, TextInput, Alert, Keyboard, ScrollView } from "react-native";
 import { router } from "expo-router";
 
 import FooterToolBar from "@/components/FooterToolBar";
@@ -87,6 +87,9 @@ export const MarkdownApp = () => {
         { name: 'list-ul', onPress: () => indexLine('+') },
         { name: 'list-ol', onPress: () => indexLine('1.') },
         { name: 'quote-right', onPress: () => indexLine('>') },
+        { name: 'minus', onPress: () => indexLine('---') },
+        { name: 'indent', onPress: () => indexLine('\t', 8) },
+        { name: 'outdent', onPress: () => indexLine('\t', 0) },
       ]}/>
 
       <ModalPromp

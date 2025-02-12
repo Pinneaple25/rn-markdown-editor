@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Animated, Keyboard, Pressable, StyleProp, ViewStyle } from 'react-native';
+import { Animated, Keyboard, Pressable, StyleProp, View, ViewStyle } from 'react-native';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import useAnimation from '@/hooks/useAnimation';
 import { globalStyles } from '@/styles/global-styles';
@@ -24,28 +24,26 @@ export const FooterToolBar = ({ items }: Props) => {
   }, []);
 
   return (
-    <Animated.View style={
-      [
-        globalStyles.toolsContainer, 
-        {
-          transform: [
-            { 
-              translateY: animatedValue 
-            }
-          ],
-          position: 'absolute',
-          bottom: 0,
-          right: 0,
-          left: 0, 
-        }
-      ]}
+    <Animated.ScrollView 
+      horizontal={ true } 
+      showsHorizontalScrollIndicator={ true }
+      keyboardShouldPersistTaps={ true } 
+      style={{
+        transform: [{ translateY: animatedValue }],
+        position: 'absolute',
+        bottom: 0,
+        right: 0,
+        left: 0,
+      }}
     >
-      { items.map((item, i) => 
-        <Pressable key={ i } onPress={ item.onPress } style={{ height: 36 }}>
-          <FontAwesome name={ item.name } size={ 32 } color="black" />
-        </Pressable>
-      )}
-    </Animated.View>
+      <View style={ globalStyles.toolsContainer }>
+        { items.map((item, i) =>
+          <Pressable key={ i } onPress={ item.onPress } style={{ height: 36 }}>
+            <FontAwesome name={ item.name } size={ 32 } color="black" />
+          </Pressable>
+        )}
+      </View>
+    </Animated.ScrollView>
   )
 }
 
