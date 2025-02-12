@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { View, TextInput, Alert, Keyboard, ScrollView } from "react-native";
+import { Ref, useEffect, useRef, useState } from "react";
+import { View, TextInput, Alert, Keyboard, ScrollView, KeyboardAvoidingView } from "react-native";
 import { router } from "expo-router";
 
 import FooterToolBar from "@/components/FooterToolBar";
@@ -11,6 +11,8 @@ import { globalStyles } from '@/styles/global-styles';
 
 export const MarkdownApp = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const [marginBottom, setMarginBottom] = useState(0);
+
   const { url, setUrl, postRequest, saveUrl } = useRequest();
   const { 
     txt,
@@ -27,6 +29,11 @@ export const MarkdownApp = () => {
   useEffect(() => {
     loadText();
   }, []);
+
+  useEffect(() => {
+    Keyboard.addListener('keyboardDidShow', () => setMarginBottom(45));
+    Keyboard.addListener('keyboardDidHide', () => setMarginBottom(0));
+  });
 
   const confirmChanges = () => {
     saveText();
@@ -62,11 +69,11 @@ export const MarkdownApp = () => {
         { name: 'checkmark-outline', onPress: confirmChanges },
       ]}/>
 
-      <ScrollView>
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <TextInput
           value={ txt }
           selection={ selector }
-          style={ globalStyles.textInput }
+          style={ [globalStyles.textInput, { marginBottom: marginBottom }] }
           multiline
           onChangeText={ setTxt }
           onSelectionChange={ (event) => setSelector(event.nativeEvent.selection) }
@@ -79,7 +86,7 @@ export const MarkdownApp = () => {
         { name: 'italic', onPress: () => underline('_') },
         { name: 'list-ul', onPress: () => indexLine('+') },
         { name: 'list-ol', onPress: () => indexLine('1.') },
-        { name: 'quote-left', onPress: () => indexLine('>') },
+        { name: 'quote-right', onPress: () => indexLine('>') },
       ]}/>
 
       <ModalPromp

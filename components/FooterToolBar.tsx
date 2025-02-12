@@ -24,7 +24,22 @@ export const FooterToolBar = ({ items }: Props) => {
   }, []);
 
   return (
-    <Animated.View style={ [globalStyles.toolsContainer, { transform: [{ translateY: animatedValue }] }] }>
+    <Animated.View style={
+      [
+        globalStyles.toolsContainer, 
+        {
+          transform: [
+            { 
+              translateY: animatedValue 
+            }
+          ],
+          position: 'absolute',
+          bottom: 0,
+          right: 0,
+          left: 0, 
+        }
+      ]}
+    >
       { items.map((item, i) => 
         <Pressable key={ i } onPress={ item.onPress } style={{ height: 36 }}>
           <FontAwesome name={ item.name } size={ 32 } color="black" />
